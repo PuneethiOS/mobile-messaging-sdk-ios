@@ -44,7 +44,10 @@ class MessagePostingOperation: Operation {
 			return
 		}
 
-		context.reset()
+        // US302618- Costco Changes to avoid concurrency related crashes. reset context using performBlockAndWait.
+        context.performAndWait {
+            context.reset()
+        }
 
 		// if there were explicit messages to send
 		if let messages = self.messages {
