@@ -44,7 +44,7 @@ class MessagePostingOperation: Operation {
 			return
 		}
 
-    // US302618- Costco Changes to avoid concurrency related crashes. reset context using performBlockAndWait.
+        // US302618- Costco Changes to avoid concurrency related crashes. reset context using performBlockAndWait.
         context.performAndWait {
             context.reset()
         }
