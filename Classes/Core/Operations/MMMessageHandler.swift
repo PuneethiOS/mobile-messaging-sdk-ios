@@ -125,12 +125,13 @@ class MMMessageHandler: MobileMessagingService {
 					result = MessageHandlingResult(res)
 					group.leave()
 				})
-				
-				group.notify(queue: DispatchQueue.global(qos: .default)) {
-					MMLogDebug("[Message Handler] message handling finished")
-					completion(result)
-				}
-			}))
+            
+            let q = notificationTapped ? DispatchQueue.main : DispatchQueue.global(qos: .default)
+            group.notify(queue: q) {
+                MMLogDebug("[Message Handler] message handling finished")
+                completion(result)
+            }
+        }))
 	}
 
 	func syncMessages(handlingIteration: Int, finishBlock: @escaping (MessagesSyncResult) -> Void) {
